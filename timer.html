@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+    <style>
+        input{
+            width: 2.3%;
+            height: 25px;
+            text-align: center;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <input type="number" id="hr" value="0" min="0">
+        <sub>h</sub>
+        <input type="number" id="min" value="0" min="0">
+        <sub>m</sub>
+        <input type="number" id="sec" value="0" min="0">
+        <sub>s</sub>
+    </div>
+    <br>    
+    <div>
+        <button id="start">start</button>
+        <button id="pause">pause</button>
+        <button id="reset">reset</button>
+    </div>
+    
+</body>
+<script>
+    let hr = document.getElementById('hr');
+    let min = document.getElementById('min');
+    let sec = document.getElementById('sec');
+    let startBtn = document.getElementById("start");
+    let stopBtn = document.getElementById("pause");
+    let resetBtn = document.getElementById("reset");
+
+    startBtn.addEventListener('click', startTimer);
+    stopBtn.addEventListener('click', stopTimer);
+    resetBtn.addEventListener('click', resetTimer);
+    let intialTime = {};
+
+    function startTimer() { 
+        let hrValue = hr.value;
+        let minValue = min.value;
+        let secValue = sec.value;
+        intialTime.hr = hrValue;
+        intialTime.min = minValue;
+        intialTime.sec = secValue;
+
+        id1 =  setInterval(() => {
+            if(secValue > 0){
+                    secValue--;
+            }
+            else{
+                if(minValue > 0){
+                    minValue--;
+                    secValue = 59;
+                }
+                else{
+                    if(hrValue > 0){
+                    hrValue--;
+                    minValue = 59;
+                    secValue = 59;
+                    }
+                    else{
+                        clearInterval(id1)
+                    }
+                }
+            }
+            hr.value = hrValue;
+            min.value = minValue;
+            sec.value = secValue; 
+            
+        }, 1000);
+    }
+
+    function stopTimer() { 
+        clearInterval(id1);
+    }
+
+    function resetTimer(){
+        hr.value = intialTime.hr;
+        min.value = intialTime.min;
+        sec.value = intialTime.sec;
+        clearInterval(id1);
+    }
+    
+
+    
+
+
+</script>
+</html>
