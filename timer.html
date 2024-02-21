@@ -15,11 +15,11 @@
 </head>
 <body>
     <div>
-        <input type="number" id="hr" value="0" min="0">
+        <input type="number" id="hr" value="00" min="0"> 
         <sub>h</sub>
-        <input type="number" id="min" value="0" min="0">
+        <input type="number" id="min" value="00" min="0" max="60">
         <sub>m</sub>
-        <input type="number" id="sec" value="0" min="0">
+        <input type="number" id="sec" value="00" min="0" max="60">
         <sub>s</sub>
     </div>
     <br>    
@@ -28,8 +28,8 @@
         <button id="pause">pause</button>
         <button id="reset">reset</button>
     </div>
-    
 </body>
+
 <script>
     let hr = document.getElementById('hr');
     let min = document.getElementById('min');
@@ -44,9 +44,9 @@
     let intialTime = {};
 
     function startTimer() { 
-        let hrValue = hr.value;
-        let minValue = min.value;
-        let secValue = sec.value;
+        let hrValue = parseInt(hr.value);
+        let minValue = parseInt(min.value);
+        let secValue = parseInt(sec.value);
         intialTime.hr = hrValue;
         intialTime.min = minValue;
         intialTime.sec = secValue;
@@ -71,10 +71,24 @@
                     }
                 }
             }
-            hr.value = hrValue;
-            min.value = minValue;
-            sec.value = secValue; 
-            
+            if(hrValue < 10){
+                hr.value = `0${hrValue}`;
+            }
+            else{
+                hr.value = hrValue;
+            }
+            if(minValue < 10){
+                min.value = `0${minValue}`;
+            }
+            else{
+                min.value = minValue;
+            }
+            if(secValue < 10){
+                sec.value = `0${secValue}`;
+            }
+            else{
+                sec.value = secValue; 
+            }
         }, 1000);
     }
 
